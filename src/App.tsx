@@ -1,15 +1,21 @@
-import { Route, Router, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import SignUp from "./components/Onboarding/signUp";
-import SignIn from "./components/signIn";
+import SignIn from "./components/Onboarding/signIn";
+import VenueScreens from "./components/Venue-Screens/venueScreens";
+import { ScreenDetails } from "./components/Venue-Screens/screenDetails";
+import ShowBookings from "./components/Venue-Screens/showBookings";
 
 const App = () => {
   return (
     <>
-        <Routes>
-          <Route path="/" element={<SignUp/>}/>
-          <Route path='/signIn' element={<SignIn/>}/>
-        </Routes>
+      <Routes>
+        <Route path="/" element={<SignUp />} />
+        <Route path="/signIn" element={<SignIn />} />
+        <Route path="/VenueScreens" element={<VenueScreens />} />
+        <Route path="/ScreenDetails/:screenId" element={<ScreenDetails />} />
+        <Route path="/ShowBookings/:showId" element={<ShowBookings/>} />
+      </Routes>
     </>
   );
 };

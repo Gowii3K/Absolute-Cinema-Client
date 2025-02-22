@@ -1,4 +1,5 @@
 import axios from "axios";
+import { jwtDecode } from "jwt-decode";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
@@ -17,12 +18,24 @@ const SignIn = () => {
   } = useForm<FormFields>();
 
   const onSubmit = async (data: FormFields) => {
-    const response = await axios.post(`http://localhost:3000/auth/login`, {
+    const response = await axios.post("http://localhost:3000/auth/login", {
       email: data.email,
       password: data.password,
     });
-    console.log(response);
+
+    const token = response.data.access_token;
+    console.log(token);
+
+    const decodedToken = jwtDecode(token);
+    console.log(decodedToken);
+
+    if (decodedToken.sub) {
+      sessionStorage.setItem("token", token);
+      sessionStorage.setItem("user", decodedToken.sub);
+    }
+
     reset();
+    navigate("/VenueScreens");
   };
 
   return (
@@ -41,7 +54,7 @@ const SignIn = () => {
         />
         <div>{errors.password && errors.password.message}</div>
         <button type="submit"> Submit</button>
-        <button onClick={()=>navigate('/')}> Sign up Instead</button>
+        <button onClick={() => navigate("/")}> Sign up Instead</button>
       </form>
     </>
   );
