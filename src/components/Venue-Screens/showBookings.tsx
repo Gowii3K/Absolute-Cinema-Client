@@ -37,12 +37,12 @@ const ShowBookings = () => {
   };
 
   const onSubmit = async () => {
-    seatsToBeBooked.forEach((seat) => {
-      console.log(seat);
-      axios.post(`http://localhost:3000/bookings/`, {
-        showId: Number(showId),
-        seatNo: seat,
-      });
+    const seatsArray = [...seatsToBeBooked];
+
+
+    await axios.post(`http://localhost:3000/bookings/`, {
+      showId: Number(showId),
+      seatNo: seatsArray,
     });
 
     const updatedShows = await axios.get(
