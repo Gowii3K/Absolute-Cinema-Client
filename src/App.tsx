@@ -1,7 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
-import SignUp from "./components/Onboarding/signUp";
 import SignIn from "./components/Onboarding/signIn";
+import SignUp from "./components/Onboarding/signUp";
 import VenueScreens from "./components/Venue-Screens/venueScreens";
 import { ScreenDetails } from "./components/Venue-Screens/screenDetails";
 import ShowBookings from "./components/Venue-Screens/showBookings";
