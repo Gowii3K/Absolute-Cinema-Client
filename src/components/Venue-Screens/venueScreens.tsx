@@ -41,8 +41,19 @@ const VenueScreens = () => {
       seats: Number(data.seats),
     });
 
-    setScreensArr((prev)=>[...prev,screen.data]);
+    setScreensArr((prev) => [...prev, screen.data]);
     setOverlay(!overlay);
+  };
+
+  const deleteScreen = async (screenId: number) => {
+    console.log(screenId);
+    const deletedScreen = await axios.delete(
+      `http://localhost:3000/screens/${screenId}`
+    );
+
+    setScreensArr((prev) =>
+      prev.filter((screen) => screen.screenId !== screenId)
+    );
   };
 
   return (
@@ -55,6 +66,9 @@ const VenueScreens = () => {
             </Link>
             <h2>{screen.seats}</h2>
             <h3>{screen.venueId}</h3>
+            <button type="button" onClick={() => deleteScreen(screen.screenId)}>
+              Delete Screen
+            </button>
           </div>
         ))}
       </div>

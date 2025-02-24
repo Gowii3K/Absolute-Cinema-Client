@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { Link, useParams } from "react-router-dom";
 
 export const ScreenDetails = () => {
+  
   type FormFields = {
     date: string;
   };
@@ -40,8 +41,7 @@ export const ScreenDetails = () => {
       time: data.time,
     });
 
-    
-    setShowsArr((prev)=>[...prev,addedShow.data]);
+    setShowsArr((prev) => [...prev, addedShow.data]);
 
     console.log(addedShow);
   };
@@ -49,6 +49,15 @@ export const ScreenDetails = () => {
   const showOverlay = () => {
     setOverlay(!overlay);
   };
+
+  const deleteShow= async (showId:number)=>{
+    console.log(showId);
+
+    const deletedShow=await axios.delete(`http://localhost:3000/shows/${showId}`)
+
+    setShowsArr((prev)=>prev.filter((show)=>show.showId!==showId));
+
+  }
 
   return (
     <>
@@ -79,6 +88,9 @@ export const ScreenDetails = () => {
                 <h3>{show.showId}</h3>
               </Link>
               <h3>{show.time}</h3>
+              <button type="button" onClick={()=>deleteShow(show.showId)}>
+                Delete Show
+              </button>
             </div>
           ))}
         </>
