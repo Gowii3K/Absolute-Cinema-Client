@@ -1,7 +1,7 @@
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const SignIn = () => {
   const navigate = useNavigate();
@@ -21,6 +21,7 @@ const SignIn = () => {
     const response = await axios.post("http://localhost:3000/auth/login", {
       email: data.email,
       password: data.password,
+      type:"venue"
     });
 
     const token = response.data.access_token;
@@ -54,7 +55,9 @@ const SignIn = () => {
         />
         <div>{errors.password && errors.password.message}</div>
         <button type="submit"> Submit</button>
-        <button onClick={() => navigate("/")}> Sign up Instead</button>
+        <Link to={"/VenueSignUp"}>
+        <button type="button"> Sign up Instead</button>
+        </Link>
       </form>
     </>
   );

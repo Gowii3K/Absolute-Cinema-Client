@@ -39,7 +39,6 @@ const ShowBookings = () => {
   const onSubmit = async () => {
     const seatsArray = [...seatsToBeBooked];
 
-
     await axios.post(`http://localhost:3000/bookings/`, {
       showId: Number(showId),
       seatNo: seatsArray,

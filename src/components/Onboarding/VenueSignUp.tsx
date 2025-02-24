@@ -2,7 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 type FormFields = {
   username: string;
@@ -31,8 +31,6 @@ export const SignUp = () => {
 
     reset();
   };
-
-  const navigate = useNavigate();
 
   return (
     <>
@@ -72,7 +70,9 @@ export const SignUp = () => {
           placeholder="password"
         />
         {errors.password && <div>{errors.password.message}</div>}
-        <button onClick={() => navigate("/signIn")}>Login Instead</button>
+        <Link to={`/VenueSignIn`}>
+          <button type="button">Login Instead</button>
+        </Link>
 
         <button type="submit" disabled={isSubmitting}>
           Submit
