@@ -1,0 +1,13 @@
+.option-container {
+  display: flex;
+  border: 8px solid black;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  flex-wrap: wrap;
+}
+
+.link-button {
+  text-decoration: none;
+}

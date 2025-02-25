@@ -2,6 +2,8 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
+import { LinkButton } from "../LinkButton";
+import { SubmitButton } from "../SubmitButton";
 
 export const UserHomePage = () => {
   type Show = {
@@ -25,16 +27,17 @@ export const UserHomePage = () => {
     <>
       <form onSubmit={handleSubmit(onSubmit)}>
         <input {...register("date")} type="date" />
-        <button type="submit">Find for this date</button>
+        <SubmitButton type={"submit"} children={"Submit"} />
       </form>
 
       {showsArr.length !== 0 &&
         showsArr.map((show) => {
           return (
             <div key={show.showId}>
-              <Link to={`/UserShowBooking/${show.showId}`}>
-              <h3>{show.showId}</h3>
-              </Link>
+              <LinkButton
+                to={`/user-show-booking/${show.showId}`}
+                children={<h3>show.showId</h3>}
+              />
               <h4>{show.time}</h4>
               <h4>{show.screenId}</h4>
             </div>

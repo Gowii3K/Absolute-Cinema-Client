@@ -1,6 +1,8 @@
 import axios from "axios";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
+import { SubmitButton } from "../SubmitButton";
+import { LinkButton } from "../LinkButton";
 
 export const UserSignUp = () => {
   type UserSignUpFormFields = {
@@ -10,7 +12,7 @@ export const UserSignUp = () => {
   };
 
   const { register, handleSubmit } = useForm<UserSignUpFormFields>();
-  const navigate= useNavigate();
+  const navigate = useNavigate();
 
   const onSubmit = async (data: UserSignUpFormFields) => {
     const user = await axios.post("http://localhost:3000/users", {
@@ -19,9 +21,8 @@ export const UserSignUp = () => {
       email: data.email,
     });
 
-    sessionStorage.setItem('userId',user.data.userId);
+    sessionStorage.setItem("userId", user.data.userId);
     console.log(user);
-    
   };
 
   return (
@@ -38,10 +39,8 @@ export const UserSignUp = () => {
           type="password"
           placeholder="password"
         />
-        <button type="submit"> Sign Up</button>
-        <Link to={"/UserSignIn"}>
-          <button type="button"> Login Instead</button>
-        </Link>
+        <SubmitButton type={"submit"} children={"Submit"} />
+        <LinkButton to={'/user-sign-in'} children={"Sign In Instead"}/>
       </form>
     </>
   );

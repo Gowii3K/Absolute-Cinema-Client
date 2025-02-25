@@ -25,12 +25,12 @@ export const UserShowBooking = () => {
     await axios.post(`http://localhost:3000/bookings/`, {
       showId: Number(showId),
       seatNo: seatsArr,
-      userId:Number(userId)
+      userId: Number(userId),
     });
-    const updatedShows=await axios.get(`http://localhost:3000/bookings/${showId}`);
+    const updatedShows = await axios.get(
+      `http://localhost:3000/bookings/${showId}`
+    );
     setBookings(updatedShows.data);
-
-
   };
 
   const addSeat = (seatNo: number) => {

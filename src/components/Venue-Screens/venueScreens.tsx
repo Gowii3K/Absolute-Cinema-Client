@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
+import { SubmitButton } from "../SubmitButton";
 
 const VenueScreens = () => {
   type FormFields = {
@@ -61,21 +62,25 @@ const VenueScreens = () => {
       <div>
         {screensArr.map((screen) => (
           <div key={screen.screenId}>
-            <Link to={`/screenDetails/${screen.screenId}`}>
+            <Link to={`/screen-details/${screen.screenId}`}>
               <h1>{screen.screenId}</h1>
             </Link>
             <h2>{screen.seats}</h2>
             <h3>{screen.venueId}</h3>
-            <button type="button" onClick={() => deleteScreen(screen.screenId)}>
-              Delete Screen
-            </button>
+            <SubmitButton
+              type={"button"}
+              onClick={() => deleteScreen(screen.screenId)}
+              children={"Delete Screen"}
+            />
           </div>
         ))}
       </div>
       <div>
-        <button type="button" onClick={showUi}>
-          Add Screens
-        </button>
+        <SubmitButton
+          type={"button"}
+          onClick={showUi}
+          children={"Add screenzzzzz"}
+        />
         {overlay && (
           <>
             <form onSubmit={handleSubmit(onSubmit)}>
@@ -84,7 +89,7 @@ const VenueScreens = () => {
                 type="number"
                 placeholder="number of seats"
               />
-              <button type="submit">Done</button>
+              <SubmitButton type={"submit"} children={"Add it"}/>
             </form>
           </>
         )}

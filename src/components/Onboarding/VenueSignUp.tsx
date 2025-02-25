@@ -3,6 +3,8 @@ import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
+import { SubmitButton } from "../SubmitButton";
+import { LinkButton } from "../LinkButton";
 
 type FormFields = {
   username: string;
@@ -11,7 +13,7 @@ type FormFields = {
   password: string;
 };
 
-export const SignUp = () => {
+export const VenueSignUp = () => {
   const {
     register,
     handleSubmit,
@@ -70,16 +72,11 @@ export const SignUp = () => {
           placeholder="password"
         />
         {errors.password && <div>{errors.password.message}</div>}
-        <Link to={`/VenueSignIn`}>
-          <button type="button">Login Instead</button>
-        </Link>
-
-        <button type="submit" disabled={isSubmitting}>
-          Submit
-        </button>
+        <SubmitButton type={"submit"} children={"Submit"}/>
+        <LinkButton to={"/venue-sign-in"} children={"Sign In Instead"} />
       </form>
     </>
   );
 };
 
-export default SignUp;
+export default VenueSignUp;

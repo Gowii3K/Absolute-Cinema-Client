@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useParams } from "react-router-dom";
+import { SubmitButton } from "../SubmitButton";
 
 const ShowBookings = () => {
   const { showId } = useParams();
@@ -64,7 +65,7 @@ const ShowBookings = () => {
           </button>
         ))}
 
-        <button type="submit">Confirm</button>
+        <SubmitButton type={"submit"} children={"Confrim"} />
       </form>
     </>
   );

@@ -2,8 +2,10 @@ import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
+import { LinkButton } from "../LinkButton";
+import { SubmitButton } from "../SubmitButton";
 
-const SignIn = () => {
+const VenueSignIn = () => {
   const navigate = useNavigate();
   type FormFields = {
     email: string;
@@ -21,7 +23,7 @@ const SignIn = () => {
     const response = await axios.post("http://localhost:3000/auth/login", {
       email: data.email,
       password: data.password,
-      type:"venue"
+      type: "venue",
     });
 
     const token = response.data.access_token;
@@ -36,7 +38,7 @@ const SignIn = () => {
     }
 
     reset();
-    navigate("/VenueScreens");
+    navigate("/venue-screens");
   };
 
   return (
@@ -54,13 +56,11 @@ const SignIn = () => {
           name="password"
         />
         <div>{errors.password && errors.password.message}</div>
-        <button type="submit"> Submit</button>
-        <Link to={"/VenueSignUp"}>
-        <button type="button"> Sign up Instead</button>
-        </Link>
+        <SubmitButton type={"submit"} children={"Submit"}/>
+        <LinkButton to={"/venue-sign-up"} children={'Sign Up Instead'} />
       </form>
     </>
   );
 };
 
-export default SignIn;
+export default VenueSignIn;

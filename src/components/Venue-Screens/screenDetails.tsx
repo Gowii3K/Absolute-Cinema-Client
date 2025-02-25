@@ -2,9 +2,10 @@ import axios from "axios";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useParams } from "react-router-dom";
+import { SubmitButton } from "../SubmitButton";
+import { LinkButton } from "../LinkButton";
 
 export const ScreenDetails = () => {
-  
   type FormFields = {
     date: string;
   };
@@ -50,31 +51,35 @@ export const ScreenDetails = () => {
     setOverlay(!overlay);
   };
 
-  const deleteShow= async (showId:number)=>{
+  const deleteShow = async (showId: number) => {
     console.log(showId);
 
-    const deletedShow=await axios.delete(`http://localhost:3000/shows/${showId}`)
+    const deletedShow = await axios.delete(
+      `http://localhost:3000/shows/${showId}`
+    );
 
-    setShowsArr((prev)=>prev.filter((show)=>show.showId!==showId));
-
-  }
+    setShowsArr((prev) => prev.filter((show) => show.showId !== showId));
+  };
 
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)}>
         <input type="date" {...register("date")} />
-        <button type="submit">Find for this date</button>
+        <SubmitButton type={"submit"} children={"Find for this date"} />
       </form>
 
-      <button type="button" onClick={showOverlay} disabled={date === ""}>
-        Add Show for this date
-      </button>
+      <SubmitButton
+        type={"button"}
+        onClick={showOverlay}
+        disabled={date === ""}
+        children={"Add show for this date"}
+      />
 
       {overlay && date !== "" && (
         <>
           <form onSubmit={submitShow(onSubmitShow)}>
             <input {...registerShow("time")} type="text" placeholder="time" />
-            <button type="submit">Add Show</button>
+            <SubmitButton type={"submit"} children={"Add Show"} />
           </form>
         </>
       )}
@@ -84,13 +89,17 @@ export const ScreenDetails = () => {
           {showsArr.length === 0 && <h1> No shows for this date</h1>}
           {showsArr.map((show) => (
             <div key={show.showId}>
-              <Link to={`/ShowBookings/${show.showId}`}>
-                <h3>{show.showId}</h3>
-              </Link>
+              <LinkButton
+                to={`/show-bookings/${show.showId}`}
+                children={show.showId}
+              />
+
               <h3>{show.time}</h3>
-              <button type="button" onClick={()=>deleteShow(show.showId)}>
-                Delete Show
-              </button>
+              <SubmitButton
+                type={"button"}
+                onClick={() => deleteShow(show.showId)}
+                children={"Delete Show"}
+              />
             </div>
           ))}
         </>

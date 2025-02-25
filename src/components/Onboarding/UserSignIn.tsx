@@ -2,6 +2,8 @@ import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
+import { SubmitButton } from "../SubmitButton";
+import { LinkButton } from "../LinkButton";
 
 export const UserSignIn = () => {
   const navigate = useNavigate();
@@ -25,7 +27,7 @@ export const UserSignIn = () => {
       sessionStorage.setItem("userId", decodedUser.sub);
     }
 
-    navigate("/UserHomePage");
+    navigate("/user-home-page");
   };
   return (
     <>
@@ -37,10 +39,8 @@ export const UserSignIn = () => {
           type="password"
           placeholder="password"
         />
-        <button type="submit"> Sign Up</button>
-        <Link to={"/UserSignUp"}>
-          <button type="button"> Sign Up Instead</button>
-        </Link>
+        <SubmitButton type={"submit"} children={"Submit"} />
+        <LinkButton to={"/user-sign-up"} children={"Sign Up Instead"} />
       </form>
     </>
   );
