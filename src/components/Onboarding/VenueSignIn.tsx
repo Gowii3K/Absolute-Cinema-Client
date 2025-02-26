@@ -1,23 +1,15 @@
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
-import { useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { UserForm } from "../UserForm";
 import { LinkButton } from "../LinkButton";
-import { SubmitButton } from "../SubmitButton";
 
 const VenueSignIn = () => {
   const navigate = useNavigate();
   type FormFields = {
-    email: string;
-    password: string;
+    email?: string;
+    password?: string;
   };
-
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors, isSubmitting },
-  } = useForm<FormFields>();
 
   const onSubmit = async (data: FormFields) => {
     const response = await axios.post("http://localhost:3000/auth/login", {
@@ -37,28 +29,24 @@ const VenueSignIn = () => {
       sessionStorage.setItem("user", decodedToken.sub);
     }
 
-    reset();
     navigate("/venue-screens");
+  };
+
+  const props = {
+    onSubmit: onSubmit,
+    values: {
+      email: true,
+      password: true,
+    },
   };
 
   return (
     <>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <input
-          {...register("email", { required: "email is required" })}
-          type="email"
-          name="email"
-        />
-        <div>{errors.email && errors.email.message}</div>
-        <input
-          {...register("password", { required: "Password is required" })}
-          type="password"
-          name="password"
-        />
-        <div>{errors.password && errors.password.message}</div>
-        <SubmitButton type={"submit"} children={"Submit"}/>
-        <LinkButton to={"/venue-sign-up"} children={'Sign Up Instead'} />
-      </form>
+      <UserForm {...props} />
+      <LinkButton
+        to={"/venue-sign-up"}
+        children={"Sign Up Instead"}
+      ></LinkButton>
     </>
   );
 };

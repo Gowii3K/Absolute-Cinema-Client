@@ -89,7 +89,7 @@ const VenueScreens = () => {
                 type="number"
                 placeholder="number of seats"
               />
-              <SubmitButton type={"submit"} children={"Add it"}/>
+              <SubmitButton type={"submit"} children={"Add it"} />
             </form>
           </>
         )}

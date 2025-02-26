@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import styles from "./ChoseUser.module.css";
 import "../../App.css";
 import { LinkButton } from "../LinkButton";

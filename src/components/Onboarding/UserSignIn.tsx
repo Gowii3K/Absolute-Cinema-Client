@@ -1,18 +1,16 @@
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
-import { useForm } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom";
-import { SubmitButton } from "../SubmitButton";
+import {  useNavigate } from "react-router-dom";
 import { LinkButton } from "../LinkButton";
+import { UserForm } from "../UserForm";
 
 export const UserSignIn = () => {
   const navigate = useNavigate();
-  type UserSignInFormFields = {
-    email: string;
-    password: string;
-  };
 
-  const { register, handleSubmit } = useForm<UserSignInFormFields>();
+  type UserSignInFormFields = {
+    email?: string;
+    password?: string;
+  };
 
   const onSubmit = async (data: UserSignInFormFields) => {
     const response = await axios.post("http://localhost:3000/auth/login", {
@@ -26,22 +24,22 @@ export const UserSignIn = () => {
     if (decodedUser.sub) {
       sessionStorage.setItem("userId", decodedUser.sub);
     }
+    
 
     navigate("/user-home-page");
   };
+
+  const props = {
+    onSubmit: onSubmit,
+    values: {
+      email: true,
+      password: true,
+    },
+  };
   return (
     <>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <input {...register("email")} type="email" placeholder="email" />
-
-        <input
-          {...register("password")}
-          type="password"
-          placeholder="password"
-        />
-        <SubmitButton type={"submit"} children={"Submit"} />
-        <LinkButton to={"/user-sign-up"} children={"Sign Up Instead"} />
-      </form>
+      <UserForm {...props} />
+      <LinkButton to={"/user-sign-up"} children={"Sign UP Instead"} />
     </>
   );
 };

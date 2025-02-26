@@ -1,9 +1,7 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { useState } from "react";
 import { LinkButton } from "../LinkButton";
-import { SubmitButton } from "../SubmitButton";
+import { UserForm } from "../UserForm";
 
 export const UserHomePage = () => {
   type Show = {
@@ -13,22 +11,23 @@ export const UserHomePage = () => {
     time: string;
   };
   const [showsArr, setShowsArr] = useState<Show[]>([]);
-  const { register, handleSubmit } = useForm<{ date: string }>();
 
-  useEffect(() => {}, []);
-
-  const onSubmit = async (data: { date: string }) => {
+  const onSubmit = async (data: { date?: string }) => {
     console.log(data);
     const shows = await axios.get(`http://localhost:3000/shows/${data.date}`);
     console.log(shows);
     setShowsArr(shows.data);
   };
+
+  const props = {
+    onSubmit: onSubmit,
+    values: {
+      date: true,
+    },
+  };
   return (
     <>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <input {...register("date")} type="date" />
-        <SubmitButton type={"submit"} children={"Submit"} />
-      </form>
+      <UserForm {...props} />
 
       {showsArr.length !== 0 &&
         showsArr.map((show) => {

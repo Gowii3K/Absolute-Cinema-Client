@@ -1,13 +1,14 @@
 import axios from "axios";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { Link, useParams } from "react-router-dom";
+import {  useParams } from "react-router-dom";
 import { SubmitButton } from "../SubmitButton";
 import { LinkButton } from "../LinkButton";
+import { UserForm } from "../UserForm";
 
 export const ScreenDetails = () => {
   type FormFields = {
-    date: string;
+    date?: string;
   };
 
   type ShowFormFields = {
@@ -21,7 +22,6 @@ export const ScreenDetails = () => {
 
   const [date, setDate] = useState("");
 
-  const { register, handleSubmit } = useForm<FormFields>();
   const { register: registerShow, handleSubmit: submitShow } =
     useForm<ShowFormFields>();
 
@@ -30,7 +30,9 @@ export const ScreenDetails = () => {
       `http://localhost:3000/shows/${screenId}/${data.date}`
     );
     setShowsArr(shows.data);
-    setDate(data.date);
+    if (data.date) {
+      setDate(data.date);
+    }
   };
 
   const onSubmitShow = async (data: ShowFormFields) => {
@@ -60,13 +62,16 @@ export const ScreenDetails = () => {
 
     setShowsArr((prev) => prev.filter((show) => show.showId !== showId));
   };
+  const props = {
+    onSubmit: onSubmit,
+    values: {
+      date: true,
+    },
+  };
 
   return (
     <>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <input type="date" {...register("date")} />
-        <SubmitButton type={"submit"} children={"Find for this date"} />
-      </form>
+      <UserForm {...props} />
 
       <SubmitButton
         type={"button"}

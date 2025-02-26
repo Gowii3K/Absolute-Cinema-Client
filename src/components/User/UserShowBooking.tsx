@@ -6,6 +6,7 @@ export const UserShowBooking = () => {
   const bookedSeats = new Set<number>();
   const { showId } = useParams();
   const userId = sessionStorage.getItem("userId");
+
   const [bookings, setBookings] = useState<
     { seatNo: number; isBooked: boolean }[]
   >([]);
