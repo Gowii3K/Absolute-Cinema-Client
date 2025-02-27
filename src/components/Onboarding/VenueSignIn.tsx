@@ -29,7 +29,7 @@ const VenueSignIn = () => {
       sessionStorage.setItem("user", decodedToken.sub);
     }
 
-    navigate("/venue-screens");
+    navigate("/venue-dash-board");
   };
 
   const props = {

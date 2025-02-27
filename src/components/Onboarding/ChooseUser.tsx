@@ -1,6 +1,7 @@
 import styles from "./ChoseUser.module.css";
 import "../../App.css";
 import { LinkButton } from "../LinkButton";
+import { PlacesAutocomplete } from "../PlacesAutocomplete";
 
 export const ChooseUser = () => {
   return (

@@ -12,6 +12,8 @@ import { ScreenDetails } from "./components/Venue-Screens/ScreenDetails";
 import ShowBookings from "./components/Venue-Screens/ShowBookings";
 import { UserHomePage } from "./components/User/UserHomePage";
 import { UserShowBooking } from "./components/User/UserShowBooking";
+import { VenueDashBoard } from "./components/Venue-Screens/VenueDashBoard";
+import { UpdateAddress } from "./components/Venue-Screens/UpdateAddress";
 
 const router = createBrowserRouter([
   {
@@ -35,6 +37,10 @@ const router = createBrowserRouter([
     element: <VenueSignIn />,
   },
   {
+    path: "/venue-dash-board",
+    element: <VenueDashBoard />,
+  },
+  {
     path: "/venue-screens",
     element: <VenueScreens />,
   },
@@ -54,6 +60,10 @@ const router = createBrowserRouter([
     path: "/user-show-booking/:showId",
     element: <UserShowBooking />,
   },
+  {
+    path: "/update-address",
+    element: <UpdateAddress/>,
+  }
 ]);
 
 createRoot(document.getElementById("root")!).render(

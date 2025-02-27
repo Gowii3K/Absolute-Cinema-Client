@@ -1,11 +1,10 @@
 import axios from "axios";
-import {  SubmitHandler } from "react-hook-form";
+import { SubmitHandler } from "react-hook-form";
 import { LinkButton } from "../LinkButton";
 import { UserForm } from "../UserForm";
 
 type FormFields = {
   username?: string;
-  location?: string;
   email?: string;
   password?: string;
 };
@@ -15,7 +14,6 @@ export const VenueSignUp = () => {
     console.log(data);
     const response = await axios.post(`http://localhost:3000/venues`, {
       username: data.username,
-      location: data.location,
       email: data.email,
       password: data.password,
     });
@@ -25,7 +23,6 @@ export const VenueSignUp = () => {
     onSubmit: onSubmit,
     values: {
       username: true,
-      location: true,
       email: true,
       password: true,
     },
@@ -34,7 +31,6 @@ export const VenueSignUp = () => {
   return (
     <>
       <UserForm {...props} />
-
       <LinkButton to={"/venue-sign-in"} children={"Sign In Instead"} />
     </>
   );
