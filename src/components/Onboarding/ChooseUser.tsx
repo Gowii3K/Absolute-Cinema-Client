@@ -4,6 +4,9 @@ import { LinkButton } from "../LinkButton";
 import { PlacesAutocomplete } from "../PlacesAutocomplete";
 
 export const ChooseUser = () => {
+  console.log(import.meta.env.VITE_GOOGLE_API_KEY);
+
+
   return (
     <div className={styles["option-container"]}>
       <LinkButton

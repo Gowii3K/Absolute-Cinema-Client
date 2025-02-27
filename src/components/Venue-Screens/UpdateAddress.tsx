@@ -41,14 +41,11 @@ export const UpdateAddress = () => {
           lng: updateLocation[0].geometry?.location?.lng(),
         });
         console.log("called");
-         await axios.put(
-          `http://localhost:3000/venues/address/${venueId}`,
-          {
-            location: updateLocation[0].formatted_address,
-            lat: updateLocation[0].geometry?.location?.lat(),
-            lng: updateLocation[0].geometry?.location?.lng(),
-          }
-        );
+        await axios.put(`http://localhost:3000/venues/address/${venueId}`, {
+          location: updateLocation[0].formatted_address,
+          lat: updateLocation[0].geometry?.location?.lat(),
+          lng: updateLocation[0].geometry?.location?.lng(),
+        });
       }
     }
   };
@@ -57,7 +54,7 @@ export const UpdateAddress = () => {
     <>
       <LoadScript
         libraries={["places"]}
-        googleMapsApiKey="AIzaSyApPLpD4Jc7HwupzUtLAMbcmHgpdo8jbgE"
+        googleMapsApiKey={import.meta.env.VITE_GOOGLE_API_KEY}
       >
         <StandaloneSearchBox onPlacesChanged={onPlacesChanged} onLoad={onLoad}>
           <input
