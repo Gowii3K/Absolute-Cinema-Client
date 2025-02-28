@@ -30,7 +30,8 @@ export const UserSignUp = () => {
     values:{
       username:true,
       password:true,
-      email:true
+      email:true,
+      switchTo:"/user-sign-in"
     }
   }
 
@@ -38,8 +39,7 @@ export const UserSignUp = () => {
     <>
       
       <UserForm {...props}/>
-        <LinkButton to={"/user-sign-in"} children={"Sign In Instead"} />
-     
+        
     </>
   );
 };

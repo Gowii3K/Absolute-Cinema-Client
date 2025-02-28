@@ -25,13 +25,13 @@ export const VenueSignUp = () => {
       username: true,
       email: true,
       password: true,
+      switchTo: "/venue-sign-in",
     },
   };
 
   return (
     <>
       <UserForm {...props} />
-      <LinkButton to={"/venue-sign-in"} children={"Sign In Instead"} />
     </>
   );
 };

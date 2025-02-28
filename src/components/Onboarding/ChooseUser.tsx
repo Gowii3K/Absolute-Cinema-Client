@@ -11,13 +11,13 @@ export const ChooseUser = () => {
     <div className={styles["option-container"]}>
       <LinkButton
         to={"/user-sign-up"}
-        className={styles["link-button"]}
+        className={styles.linkButton}
         children={"USERS"}
       />
 
       <LinkButton
         to={"/venue-sign-up"}
-        className={styles["link-button"]}
+        className={styles.linkButton}
         children={"ADMINSS"}
       />
     </div>

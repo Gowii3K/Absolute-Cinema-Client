@@ -37,16 +37,14 @@ const VenueSignIn = () => {
     values: {
       email: true,
       password: true,
+      switchTo:"/venue-sign-up"
     },
   };
 
   return (
     <>
       <UserForm {...props} />
-      <LinkButton
-        to={"/venue-sign-up"}
-        children={"Sign Up Instead"}
-      ></LinkButton>
+      
     </>
   );
 };

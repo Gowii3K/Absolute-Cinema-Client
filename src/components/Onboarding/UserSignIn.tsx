@@ -34,12 +34,12 @@ export const UserSignIn = () => {
     values: {
       email: true,
       password: true,
+      switchTo:"/user-sign-up"
     },
   };
   return (
     <>
       <UserForm {...props} />
-      <LinkButton to={"/user-sign-up"} children={"Sign UP Instead"} />
     </>
   );
 };
