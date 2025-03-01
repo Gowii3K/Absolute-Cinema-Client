@@ -1,4 +1,6 @@
 import { ButtonHTMLAttributes, FC } from "react";
+import styles from "./SubmitButton.module.css";
+
 
 export const SubmitButton: FC<ButtonHTMLAttributes<HTMLButtonElement>> = ({
   ...rest

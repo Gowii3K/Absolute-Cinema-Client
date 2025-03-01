@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { SubmitButton } from "../SubmitButton";
+import styles from "./VenueScreens.module.css";
 
 const VenueScreens = () => {
   type FormFields = {
@@ -59,40 +60,41 @@ const VenueScreens = () => {
 
   return (
     <>
-      <div>
+      <div className={styles.screensContainer}>
         {screensArr.map((screen) => (
-          <div key={screen.screenId}>
+          <div key={screen.screenId} className={styles.screenCard}>
             <Link to={`/screen-details/${screen.screenId}`}>
-              <h1>{screen.screenId}</h1>
+              <h1> Screen {screen.screenId}</h1>
             </Link>
-            <h2>{screen.seats}</h2>
-            <h3>{screen.venueId}</h3>
+            <h2>No of Seats:{screen.seats}</h2>
             <SubmitButton
               type={"button"}
               onClick={() => deleteScreen(screen.screenId)}
               children={"Delete Screen"}
             />
+            sdsd
           </div>
         ))}
-      </div>
-      <div>
-        <SubmitButton
-          type={"button"}
-          onClick={showUi}
-          children={"Add screenzzzzz"}
-        />
-        {overlay && (
-          <>
-            <form onSubmit={handleSubmit(onSubmit)}>
-              <input
-                {...register("seats")}
-                type="number"
-                placeholder="number of seats"
-              />
-              <SubmitButton type={"submit"} children={"Add it"} />
-            </form>
-          </>
-        )}
+        <div>
+          <SubmitButton
+            type={"button"}
+            onClick={showUi}
+            children={"Add screenzzzzz"}
+          />
+          {overlay && (
+            <>
+              <form onSubmit={handleSubmit(onSubmit)}>
+                <input
+                  {...register("seats")}
+                  type="number"
+                  placeholder="number of seats"
+                />
+                <br />
+                <SubmitButton type={"submit"} children={"Add it"} />
+              </form>
+            </>
+          )}
+        </div>
       </div>
     </>
   );

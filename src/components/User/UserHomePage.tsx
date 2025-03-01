@@ -4,6 +4,7 @@ import { LinkButton } from "../LinkButton";
 import { UserForm } from "../UserForm";
 import { useParams } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
+import { DateSelector } from "../DateSelector";
 
 export const UserHomePage = () => {
   type Show = {
@@ -40,16 +41,10 @@ export const UserHomePage = () => {
     setShowsArr(shows.data);
   };
 
-  const props = {
-    onSubmit: onSubmit,
-    values: {
-      date: true,
-    },
-  };
   return (
     <>
       <h1>{userId}</h1>
-      <UserForm {...props} />
+      <DateSelector onSubmit={onSubmit} />
 
       {showsArr.length !== 0 &&
         showsArr.map((show) => {

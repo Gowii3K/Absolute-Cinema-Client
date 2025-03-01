@@ -8,16 +8,15 @@ type FormValues = {
   email?: boolean;
   username?: boolean;
   password?: boolean;
-  date?: boolean;
   location?: boolean;
   switchTo?: string;
+  google?:boolean;
 };
 
 type FormData = {
   email?: string;
   username?: string;
   password?: string;
-  date?: string;
   location?: string;
 };
 type FormProps = {
@@ -79,9 +78,7 @@ export const UserForm = (props: FormProps) => {
           <p className={styles.errorMessage}>{errors.password.message}</p>
         )}
       </div>
-      {values.date && (
-        <input {...register("date")} type="date" placeholder="date" />
-      )}
+
       {values.location && (
         <input
           {...register("location")}
@@ -95,9 +92,14 @@ export const UserForm = (props: FormProps) => {
         children={"Submit"}
         className={styles.userFormButton}
       />
-      <button type="button" onClick={google}>
+      {values.google && ( <button
+        type="button"
+        onClick={google}
+        className={`${styles.googleButton} ${styles.userFormButton}`}
+      >
         Google Time
-      </button>
+      </button>)}
+     
       {values.switchTo && (
         <LinkButton
           to={values.switchTo}

@@ -1,0 +1,30 @@
+.bookingContainer {
+    display: flex;
+    flex-direction: row;    /* Arrange items in a row */
+    flex-wrap: nowrap;      /* Prevent wrapping to new lines */
+    justify-content: flex-start; /* Start from the left */
+    gap: 10px;              /* Space between buttons */
+    overflow-x: auto;       /* Allow horizontal scrolling if needed */
+    width: 100%;
+    padding: 10px 0;
+  }
+  
+  .seatButton {
+    flex: 0 0 60px;  /* Fixed width and height */
+    height: 60px;
+    width: 60px;
+    background-color: aqua;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+  
+  .seatButton:disabled {
+    background-color: #ddd;
+    cursor: not-allowed;
+  }

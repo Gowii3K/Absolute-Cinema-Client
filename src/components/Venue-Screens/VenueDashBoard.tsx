@@ -1,23 +1,51 @@
 import axios from "axios";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { LinkButton } from "../LinkButton";
+import styles from "./VenueDashBoard.module.css";
 
 export const VenueDashBoard = () => {
-  let details;
+  const [details, setDetails] = useState<venue | null>(null);
   const venueId = sessionStorage.getItem("user");
+
+  interface venue {
+    venueId: number;
+    createdAt: string;
+    email: string;
+    lat: number;
+    lng: number;
+    location: string;
+    password: string;
+    username: string;
+  }
+
   useEffect(() => {
     const getDetails = async () => {
-      details = await axios.get(`http://localhost:3000/venues/${venueId}`);
-      console.log(details);
+      const response = await axios.get(
+        `http://localhost:3000/venues/${venueId}`
+      );
+      setDetails(response.data);
     };
     getDetails();
+    console.log(details);
   }, []);
 
+  useEffect(() => {
+    console.log(details);
+  }, [details]);
+
   return (
-    <>
-      
-      <LinkButton to={"/venue-screens"} children={"Find screens "} />
-      <LinkButton to={"/update-address"} children={"Update Locaton"} />
-    </>
+    <div className={styles.detailsContainer}>
+      {details && (
+        <>
+          <h1>{details.venueId}</h1>
+          <h1>{details.username}</h1>
+          <h2>{details.location}</h2>
+        </>
+      )}
+      <div className={styles.optionsContainer}>
+        <LinkButton to={"/venue-screens"} children={"Find screens"} />
+        <LinkButton to={"/update-address"} children={"Update Locaton"} />
+      </div>
+    </div>
   );
 };

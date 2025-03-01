@@ -1,0 +1,13 @@
+.screensContainer{
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.screenCard{
+    display: flex;
+    flex-direction: column;
+    align-items:center ;
+    background-color: aqua;
+    
+}

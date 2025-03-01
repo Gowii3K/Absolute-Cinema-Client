@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useParams } from "react-router-dom";
 import { SubmitButton } from "../SubmitButton";
+import styles from "./ShowBookings.module.css";
+
 
 const ShowBookings = () => {
   const { showId } = useParams();
@@ -53,6 +55,7 @@ const ShowBookings = () => {
 
   return (
     <>
+    <div className={styles.bookingContainer}>
       <form onSubmit={handleSubmit(onSubmit)}>
         {bookingsArr.map((booking) => (
           <button
@@ -60,6 +63,7 @@ const ShowBookings = () => {
             key={booking.seatNo}
             onClick={() => bookSeat(booking.seatNo)}
             disabled={booking.isBooked}
+            className={styles.seatButton}
           >
             {booking.seatNo}
           </button>
@@ -67,6 +71,7 @@ const ShowBookings = () => {
 
         <SubmitButton type={"submit"} children={"Confrim"} />
       </form>
+      </div>
     </>
   );
 };

@@ -34,7 +34,8 @@ export const UserSignIn = () => {
     values: {
       email: true,
       password: true,
-      switchTo:"/user-sign-up"
+      switchTo:"/user-sign-up",
+      google:true
     },
   };
   return (

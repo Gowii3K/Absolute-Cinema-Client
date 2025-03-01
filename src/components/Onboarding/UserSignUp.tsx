@@ -31,7 +31,8 @@ export const UserSignUp = () => {
       username:true,
       password:true,
       email:true,
-      switchTo:"/user-sign-in"
+      switchTo:"/user-sign-in",
+      google:true
     }
   }
 

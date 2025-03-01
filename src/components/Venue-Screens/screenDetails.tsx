@@ -1,10 +1,12 @@
 import axios from "axios";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import {  useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { SubmitButton } from "../SubmitButton";
 import { LinkButton } from "../LinkButton";
-import { UserForm } from "../UserForm";
+import { DateSelector } from "../DateSelector";
+import styles from "./ScreenDetails.module.css";
+
 
 export const ScreenDetails = () => {
   type FormFields = {
@@ -71,7 +73,9 @@ export const ScreenDetails = () => {
 
   return (
     <>
-      <UserForm {...props} />
+    <div className={styles.dateContainer}>
+      <DateSelector onSubmit={onSubmit} />
+      <br/>
 
       <SubmitButton
         type={"button"}
@@ -79,6 +83,8 @@ export const ScreenDetails = () => {
         disabled={date === ""}
         children={"Add show for this date"}
       />
+      
+      
 
       {overlay && date !== "" && (
         <>
@@ -88,9 +94,11 @@ export const ScreenDetails = () => {
           </form>
         </>
       )}
+      </div>
 
       {date !== "" ? (
         <>
+        <div className={styles.showsContainer}>
           {showsArr.length === 0 && <h1> No shows for this date</h1>}
           {showsArr.map((show) => (
             <div key={show.showId}>
@@ -106,7 +114,9 @@ export const ScreenDetails = () => {
                 children={"Delete Show"}
               />
             </div>
+            
           ))}
+          </div>
         </>
       ) : (
         <h1>No date selected yet</h1>
