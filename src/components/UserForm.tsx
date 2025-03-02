@@ -45,9 +45,12 @@ export const UserForm = (props: FormProps) => {
 
   return (
     <div className={styles.formContainer}>
+      <div className={styles.Back}>
+        <h1 >Back</h1>
+      </div>
       <div className={styles.logoContainer}>
         <img src="src\assets\video-camera (1).png" className={styles.logo} />
-        <h1>Absolute Cinema</h1>
+        <h1 className={styles.title}>Absolute  Cinema</h1>
       </div>
 
       <form onSubmit={handleSubmit(onSubmit)} className={styles.userForm}>
@@ -110,7 +113,9 @@ export const UserForm = (props: FormProps) => {
 
         {values.switchTo && (
           <LinkButton to={values.switchTo} children={buttonText} />
+          
         )}
+        <LinkButton to={"/"} children={"Choose another user type"} />
       </form>
     </div>
   );

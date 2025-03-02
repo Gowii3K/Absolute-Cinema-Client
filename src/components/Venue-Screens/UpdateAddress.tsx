@@ -2,9 +2,24 @@ import { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import { LoadScript, StandaloneSearchBox } from "@react-google-maps/api";
 import { SubmitButton } from "../SubmitButton";
+import styles from "./UpdateAddress.module.css";
 
 export const UpdateAddress = () => {
-  const venueId = sessionStorage.getItem("user");
+  const [details, setDetails] = useState<venue | null>(null);
+  const [isAddress, setIsAddress] = useState(false);
+
+  interface venue {
+    venueId: number;
+    createdAt: string;
+    email: string;
+    lat: number;
+    lng: number;
+    location: string;
+    password: string;
+    username: string;
+  }
+
+  const venueId = sessionStorage.getItem("venueId");
   const locationRef = useRef<google.maps.places.SearchBox>(null);
   const onLoad = (ref: google.maps.places.SearchBox) => {
     locationRef.current = ref;
@@ -22,13 +37,23 @@ export const UpdateAddress = () => {
 
   useEffect(() => {
     const getDetails = async () => {
+      console.log("venue id is " + venueId);
       const details = await axios.get(
         `http://localhost:3000/venues/${venueId}`
       );
-      console.log(details);
+      setDetails(details.data);
     };
     getDetails();
   }, []);
+
+  useEffect(() => {
+    console.log(details);
+    
+    if (details?.location)  {
+      setIsAddress(true);
+      console.log("location is" + details?.location);
+    }
+  }, [details]);
 
   const update = async () => {
     if (locationRef.current) {
@@ -41,36 +66,43 @@ export const UpdateAddress = () => {
           lng: updateLocation[0].geometry?.location?.lng(),
         });
         console.log("called");
+        
         await axios.put(`http://localhost:3000/venues/address/${venueId}`, {
           location: updateLocation[0].formatted_address,
           lat: updateLocation[0].geometry?.location?.lat(),
           lng: updateLocation[0].geometry?.location?.lng(),
         });
+        
       }
     }
   };
 
   return (
-    <>
-      <LoadScript
-        libraries={["places"]}
-        googleMapsApiKey={import.meta.env.VITE_GOOGLE_API_KEY}
-      >
-        <StandaloneSearchBox onPlacesChanged={onPlacesChanged} onLoad={onLoad}>
-          <input
-            type="text"
-            placeholder="Search for a place"
-            style={{
-              width: "100%",
-              padding: "10px",
-              fontSize: "16px",
-              border: "1px solid #ccc",
-              borderRadius: "4px",
-            }}
-          />
-        </StandaloneSearchBox>
-      </LoadScript>
-      <SubmitButton type="button" onClick={update} children={"Submit"} />
-    </>
+    <div className={styles.addressContainer}>
+      <div className={styles.details}>
+        {isAddress && <h1>Your current Address is {details?.location}</h1>}
+        {!isAddress && <h1>You have not set a location yet</h1>}
+      </div>
+      <div className={styles.inputContainer}>
+        <LoadScript
+          libraries={["places"]}
+          googleMapsApiKey={import.meta.env.VITE_GOOGLE_API_KEY}
+        >
+          <StandaloneSearchBox
+            onPlacesChanged={onPlacesChanged}
+            onLoad={onLoad}
+          >
+            <input
+              type="text"
+              placeholder="Search for a place"
+              className={styles.formField}
+            />
+          </StandaloneSearchBox>
+        </LoadScript>
+      </div>
+      <div>
+        <SubmitButton type="button" onClick={update} children={"Submit"} />
+      </div>
+    </div>
   );
 };

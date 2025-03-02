@@ -59,8 +59,16 @@ export const VenueDashBoard = () => {
         </>
       )}
       <div className={styles.optionsContainer}>
-        <LinkButton to={"/venue-screens"} children={"Find screens"} />
-        <LinkButton to={"/update-address"} children={"Update Locaton"} />
+        <LinkButton
+          to={"/venue-screens"}
+          children={"My screens"}
+          className={styles.formButton}
+        />
+        <LinkButton
+          to={"/update-address"}
+          children={"Update Location"}
+          className={styles.formButton}
+        />
       </div>
     </div>
   );

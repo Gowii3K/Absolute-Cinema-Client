@@ -3,7 +3,24 @@
   align-items: center;
   justify-content: center;
   background-color: black;
+  flex-wrap: wrap;
   height: 100vh;
+  position:absolute;
+  width: 100%;
+}
+.logoContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  width: 30%;
+  height: auto;
 }
 .userForm {
   position: relative;
@@ -45,12 +62,7 @@
   text-align: center;
 }
 
-.logo {
-  position: relative;
-  width: 30%;
-  height: auto;
-  margin: 20px;
-}
+
 
 .errorContainer {
   height: 20px;
@@ -60,22 +72,21 @@
   color: red;
 }
 
-.logoContainer {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-h2 {
+
+.userForm h2 {
   font-size: 5em;
   color: white;
   margin: 50px;
 }
 
-.userForm h1 {
-  font-size: 5em;
+.title{
+  color: white;
+}
+.styles{
   color: white;
 }
 
-a {
+.userForm a {
   color: white;
 }
+

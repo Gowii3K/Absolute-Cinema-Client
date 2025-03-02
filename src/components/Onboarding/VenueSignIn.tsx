@@ -26,7 +26,8 @@ const VenueSignIn = () => {
 
     if (decodedToken.sub) {
       sessionStorage.setItem("token", token);
-      sessionStorage.setItem("user", decodedToken.sub);
+      sessionStorage.setItem("venueId", decodedToken.sub);
+      console.log("user id has been set to "+sessionStorage.getItem("venueId"))
     }
 
     navigate("/venue-dash-board");

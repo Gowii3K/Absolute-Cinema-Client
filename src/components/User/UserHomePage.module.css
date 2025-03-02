@@ -1,0 +1,21 @@
+.homeContainer{
+    height: 100vh;
+    background-color: black;
+    color: white;
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+}
+
+.showCard{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background-color: white;
+    width: 100%;
+    border: 1px solid black;
+}

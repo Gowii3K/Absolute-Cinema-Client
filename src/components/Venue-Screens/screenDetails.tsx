@@ -7,7 +7,6 @@ import { LinkButton } from "../LinkButton";
 import { DateSelector } from "../DateSelector";
 import styles from "./ScreenDetails.module.css";
 
-
 export const ScreenDetails = () => {
   type FormFields = {
     date?: string;
@@ -34,6 +33,7 @@ export const ScreenDetails = () => {
     setShowsArr(shows.data);
     if (data.date) {
       setDate(data.date);
+      setOverlay(false);
     }
   };
 
@@ -72,56 +72,61 @@ export const ScreenDetails = () => {
   };
 
   return (
-    <>
-    <div className={styles.dateContainer}>
-      <DateSelector onSubmit={onSubmit} />
-      <br/>
+    <div className={styles.screenDetailsContainer}>
+      <div className={styles.dateContainer}>
+        <DateSelector onSubmit={onSubmit} />
+        <br />
 
-      <SubmitButton
-        type={"button"}
-        onClick={showOverlay}
-        disabled={date === ""}
-        children={"Add show for this date"}
-      />
-      
-      
+        <SubmitButton
+          type={"button"}
+          onClick={showOverlay}
+          disabled={date === ""}
+          children={"Add show for this date"}
+          className={styles.screenButton}
+        />
 
-      {overlay && date !== "" && (
-        <>
-          <form onSubmit={submitShow(onSubmitShow)}>
-            <input {...registerShow("time")} type="text" placeholder="time" />
-            <SubmitButton type={"submit"} children={"Add Show"} />
-          </form>
-        </>
-      )}
+        {overlay && date !== "" && (
+          <>
+            <form onSubmit={submitShow(onSubmitShow)}>
+              <input {...registerShow("time")} type="text" placeholder="time" className={styles.formField}/>
+              <SubmitButton
+                type={"submit"}
+                children={"Add Show"}
+                className={styles.screenButton}
+              />
+            </form>
+          </>
+        )}
       </div>
 
       {date !== "" ? (
         <>
-        <div className={styles.showsContainer}>
-          {showsArr.length === 0 && <h1> No shows for this date</h1>}
-          {showsArr.map((show) => (
-            <div key={show.showId}>
-              <LinkButton
-                to={`/show-bookings/${show.showId}`}
-                children={show.showId}
-              />
+          <div className={styles.showsContainer}>
+            {showsArr.length === 0 && <h1> No shows for this date</h1>}
+            {<h1>{date}</h1>}
+            {showsArr.map((show) => (
+              <div key={show.showId} className={styles.showCard}>
+                <LinkButton
+                  to={`/show-bookings/${show.showId}`}
+                  children={show.showId}
+                  className={styles.showLink}
+                />
 
-              <h3>{show.time}</h3>
-              <SubmitButton
-                type={"button"}
-                onClick={() => deleteShow(show.showId)}
-                children={"Delete Show"}
-              />
-            </div>
-            
-          ))}
+                <h3>{show.time}</h3>
+                <SubmitButton
+                  type={"button"}
+                  onClick={() => deleteShow(show.showId)}
+                  children={"Delete Show"}
+                  className={styles.screenButton}
+                />
+              </div>
+            ))}
           </div>
         </>
       ) : (
         <h1>No date selected yet</h1>
       )}
       <h2></h2>
-    </>
+    </div>
   );
 };

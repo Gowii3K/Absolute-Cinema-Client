@@ -3,11 +3,88 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    background-color: black;
+    height: 100vh;
+    width: 100%;
+
 }
+
+.screensContainer {
+    color: black;
+}
+
+
+.screenButton{
+    background-color: #ffffff;
+    border: 2px solid black;
+    color: #1a1a1a;
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
+    width: 20%;
+    margin: 8px;
+    text-align: center;
+
+}
+
+
 .screenCard{
     display: flex;
     flex-direction: column;
     align-items:center ;
-    background-color: aqua;
+    background-color: white;
+    width: 80%;
     
 }
+
+.submit{
+    margin: 20px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    background-color: white;
+    width: 80%;
+}
+
+.formField {
+    padding: 10px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    color: #555;
+    outline: none;
+  
+  }
+  
+  .formField:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+  }
+
+  .title{
+    color: white;
+  }
+
+  .screenLink{
+    text-decoration: nonce;
+    color: red;
+  }
+
+  .addScreen{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .addScreenForm{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }

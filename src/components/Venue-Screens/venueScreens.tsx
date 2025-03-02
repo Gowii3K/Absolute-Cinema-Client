@@ -19,7 +19,7 @@ const VenueScreens = () => {
 
   useEffect(() => {
     const getScreens = async () => {
-      const id = sessionStorage.getItem("user");
+      const id = sessionStorage.getItem("venueId");
       console.log(id);
 
       const screens = await axios.get(`http://localhost:3000/screens/${id}`);
@@ -35,7 +35,7 @@ const VenueScreens = () => {
   };
 
   const onSubmit = async (data: FormFields) => {
-    const id = sessionStorage.getItem("user");
+    const id = sessionStorage.getItem("venueId");
     console.log(id);
 
     const screen = await axios.post(`http://localhost:3000/screens/`, {
@@ -61,9 +61,13 @@ const VenueScreens = () => {
   return (
     <>
       <div className={styles.screensContainer}>
+        <h1 className={styles.title}>My Screens</h1>
         {screensArr.map((screen) => (
           <div key={screen.screenId} className={styles.screenCard}>
-            <Link to={`/screen-details/${screen.screenId}`}>
+            <Link
+              to={`/screen-details/${screen.screenId}`}
+              className={styles.screenLink}
+            >
               <h1> Screen {screen.screenId}</h1>
             </Link>
             <h2>No of Seats:{screen.seats}</h2>
@@ -71,28 +75,33 @@ const VenueScreens = () => {
               type={"button"}
               onClick={() => deleteScreen(screen.screenId)}
               children={"Delete Screen"}
+              className={styles.screenButton}
             />
-            sdsd
           </div>
         ))}
-        <div>
+        <div className={styles.submit}>
           <SubmitButton
             type={"button"}
             onClick={showUi}
             children={"Add screenzzzzz"}
+            className={styles.screenButton}
           />
           {overlay && (
-            <>
-              <form onSubmit={handleSubmit(onSubmit)}>
+            <div className={styles.addScreen}>
+              <form onSubmit={handleSubmit(onSubmit)} className={styles.addScreenForm}>
                 <input
                   {...register("seats")}
                   type="number"
                   placeholder="number of seats"
+                  className={styles.formField}
                 />
-                <br />
-                <SubmitButton type={"submit"} children={"Add it"} />
+                <SubmitButton
+                  type={"submit"}
+                  children={"Add it"}
+                  className={styles.screenButton}
+                />
               </form>
-            </>
+            </div>
           )}
         </div>
       </div>

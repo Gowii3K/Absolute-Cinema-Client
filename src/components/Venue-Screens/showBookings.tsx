@@ -5,7 +5,6 @@ import { useParams } from "react-router-dom";
 import { SubmitButton } from "../SubmitButton";
 import styles from "./ShowBookings.module.css";
 
-
 const ShowBookings = () => {
   const { showId } = useParams();
   console.log(typeof showId);
@@ -18,17 +17,14 @@ const ShowBookings = () => {
     { seatNo: number; isBooked: boolean }[]
   >([]);
 
-  const { register, handleSubmit } = useForm();
-
   useEffect(() => {
     const getShows = async () => {
       const shows = await axios.get(`http://localhost:3000/bookings/${showId}`);
       setBookingsArr(shows.data);
-      console.log(shows)
+      console.log(shows);
     };
 
     getShows();
-   
   }, []);
 
   const bookSeat = (seatNo: number) => {
@@ -56,25 +52,23 @@ const ShowBookings = () => {
   };
 
   return (
-    <>
     <div className={styles.bookingContainer}>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        {bookingsArr.map((booking) => (
-          <button
-            type="button"
-            key={booking.seatNo}
-            onClick={() => bookSeat(booking.seatNo)}
-            disabled={booking.isBooked}
-            className={styles.seatButton}
-          >
-            {booking.seatNo}
-          </button>
-        ))}
+      {bookingsArr.map((booking) => (
+        <button
+          type="button"
+          key={booking.seatNo}
+          onClick={() => bookSeat(booking.seatNo)}
+          disabled={booking.isBooked}
+          className={styles.seatButton}
+        >
+          {booking.seatNo}
+        </button>
+      ))}
 
-        <SubmitButton type={"submit"} children={"Confrim"} />
-      </form>
-      </div>
-    </>
+      <button type="button" onClick={onSubmit}>
+        Done
+      </button>
+    </div>
   );
 };
 

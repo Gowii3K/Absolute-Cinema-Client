@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import styles from "./UserShowBooking.module.css";
 
 export const UserShowBooking = () => {
   const bookedSeats = new Set<number>();
@@ -45,21 +46,21 @@ export const UserShowBooking = () => {
   };
 
   return (
-    <>
+    <div className={styles.bookingContainer}>
       {bookings.map((booking) => (
         <button
           type="button"
           onClick={() => addSeat(booking.seatNo)}
           disabled={booking.isBooked}
           key={booking.seatNo}
+          className={styles.seatButton}
         >
           {booking.seatNo}
         </button>
       ))}
       <button type="button" onClick={bookSeats}>
-        {" "}
         Done
       </button>
-    </>
+    </div>
   );
 };
