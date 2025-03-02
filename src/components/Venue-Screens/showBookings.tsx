@@ -24,9 +24,11 @@ const ShowBookings = () => {
     const getShows = async () => {
       const shows = await axios.get(`http://localhost:3000/bookings/${showId}`);
       setBookingsArr(shows.data);
+      console.log(shows)
     };
 
     getShows();
+   
   }, []);
 
   const bookSeat = (seatNo: number) => {

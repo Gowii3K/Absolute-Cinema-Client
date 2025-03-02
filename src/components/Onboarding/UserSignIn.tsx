@@ -3,6 +3,7 @@ import { jwtDecode } from "jwt-decode";
 import { useNavigate } from "react-router-dom";
 import { LinkButton } from "../LinkButton";
 import { UserForm } from "../UserForm";
+import { title } from "process";
 
 export const UserSignIn = () => {
   const navigate = useNavigate();
@@ -35,12 +36,13 @@ export const UserSignIn = () => {
       email: true,
       password: true,
       switchTo:"/user-sign-up",
-      google:true
+      googleVenue:false,
+      title:"SIGN IN"
     },
   };
   return (
-    <>
+    
       <UserForm {...props} />
-    </>
+   
   );
 };

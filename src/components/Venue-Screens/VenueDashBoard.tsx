@@ -2,10 +2,13 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { LinkButton } from "../LinkButton";
 import styles from "./VenueDashBoard.module.css";
+import { jwtDecode } from "jwt-decode";
 
 export const VenueDashBoard = () => {
   const [details, setDetails] = useState<venue | null>(null);
-  const venueId = sessionStorage.getItem("user");
+  const [venueId, setVenueId] = useState<string | null>(
+    sessionStorage.getItem("venueId")
+  );
 
   interface venue {
     venueId: number;
@@ -19,6 +22,23 @@ export const VenueDashBoard = () => {
   }
 
   useEffect(() => {
+    const queryParams = new URLSearchParams(window.location.search);
+    const token = queryParams.get("token");
+    console.log(token);
+    if (token) {
+      const decodedUser = jwtDecode(token);
+      console.log(decodedUser);
+      if (decodedUser.sub) {
+        console.log(decodedUser.sub);
+        sessionStorage.setItem("venueId", decodedUser.sub);
+        setVenueId(sessionStorage.getItem("venueId"));
+        console.log("venue id set in session storage as" + venueId);
+      }
+    }
+  }, []);
+
+  useEffect(() => {
+    console.log(details);
     const getDetails = async () => {
       const response = await axios.get(
         `http://localhost:3000/venues/${venueId}`
@@ -27,11 +47,7 @@ export const VenueDashBoard = () => {
     };
     getDetails();
     console.log(details);
-  }, []);
-
-  useEffect(() => {
-    console.log(details);
-  }, [details]);
+  }, [venueId]);
 
   return (
     <div className={styles.detailsContainer}>

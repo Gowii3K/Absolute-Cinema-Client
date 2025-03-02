@@ -7,6 +7,7 @@ type FormFields = {
   username?: string;
   email?: string;
   password?: string;
+  
 };
 
 export const VenueSignUp = () => {
@@ -26,6 +27,8 @@ export const VenueSignUp = () => {
       email: true,
       password: true,
       switchTo: "/venue-sign-in",
+      googleVenue:true,
+      title:"SIGN UP"
     },
   };
 

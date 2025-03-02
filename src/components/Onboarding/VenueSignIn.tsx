@@ -37,7 +37,9 @@ const VenueSignIn = () => {
     values: {
       email: true,
       password: true,
-      switchTo:"/venue-sign-up"
+      switchTo:"/venue-sign-up",
+      googleVenue:true,
+      title:"SIGN IN"
     },
   };
 

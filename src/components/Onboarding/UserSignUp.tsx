@@ -8,6 +8,7 @@ export const UserSignUp = () => {
     username?: string;
     password?: string;
     email?: string;
+    
   };
 
 
@@ -32,7 +33,8 @@ export const UserSignUp = () => {
       password:true,
       email:true,
       switchTo:"/user-sign-in",
-      google:true
+      googleVenue:false,
+      title:"SIGN UP"
     }
   }
 
