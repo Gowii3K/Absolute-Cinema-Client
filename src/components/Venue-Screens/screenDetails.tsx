@@ -14,10 +14,19 @@ export const ScreenDetails = () => {
 
   type ShowFormFields = {
     time: string;
+    name: string;
+    image: FileList;
   };
   const { screenId } = useParams();
   const [showsArr, setShowsArr] = useState<
-    { showId: number; screenId: number; date: string; time: string }[]
+    {
+      showId: number;
+      screenId: number;
+      date: string;
+      time: string;
+      name: string;
+      imageUrl: string | null;
+    }[]
   >([]);
   const [overlay, setOverlay] = useState(false);
 
@@ -44,11 +53,37 @@ export const ScreenDetails = () => {
       screenId: Number(screenId),
       date: date,
       time: data.time,
+      name: data.name,
     });
 
-    setShowsArr((prev) => [...prev, addedShow.data]);
+    const showId = addedShow.data.showId;
+
+    const updatedShow = await axios.get(
+      `http://localhost:3000/shows/${showId}`
+    );
+
+    let imageUrl = null;
+    if (data.image?.[0]) {
+      const formData = new FormData();
+      formData.append("file", data.image[0]);
+
+      const imageResponse = await axios.post(
+        `http://localhost:3000/shows/${showId}/upload-file`,
+        formData,
+        {
+          headers: { "Content-Type": "multipart/form-data" },
+        }
+      );
+      imageUrl = imageResponse.data.imageUrl;
+      
+    }
+
+    const showWithImage = { ...addedShow.data, imageUrl: imageUrl || null };
+
+    setShowsArr((prev) => [...prev, showWithImage]);
 
     console.log(addedShow);
+    console.log(imageUrl);
   };
 
   const showOverlay = () => {
@@ -88,7 +123,24 @@ export const ScreenDetails = () => {
         {overlay && date !== "" && (
           <>
             <form onSubmit={submitShow(onSubmitShow)}>
-              <input {...registerShow("time")} type="text" placeholder="time" className={styles.formField}/>
+              <input
+                {...registerShow("time")}
+                type="text"
+                placeholder="time"
+                className={styles.formField}
+              />
+              <input
+                {...registerShow("name")}
+                type="text"
+                placeholder="name"
+                className={styles.formField}
+              />
+              <input
+                {...registerShow("image")}
+                type="file"
+                accept="image/*"
+                placeholder="Add Image"
+              />
               <SubmitButton
                 type={"submit"}
                 children={"Add Show"}
@@ -113,6 +165,14 @@ export const ScreenDetails = () => {
                 />
 
                 <h3>{show.time}</h3>
+                <h3>{show.name}</h3>
+                {show.imageUrl && (
+                  <img
+                    src={show.imageUrl}
+                    alt={show.name}
+                    className={styles.showImage} 
+                  />
+                )}
                 <SubmitButton
                   type={"button"}
                   onClick={() => deleteShow(show.showId)}

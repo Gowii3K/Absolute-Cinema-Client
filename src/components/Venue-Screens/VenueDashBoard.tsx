@@ -30,6 +30,8 @@ export const VenueDashBoard = () => {
       console.log(decodedUser);
       if (decodedUser.sub) {
         console.log(decodedUser.sub);
+        sessionStorage.setItem("token", token);
+
         sessionStorage.setItem("venueId", decodedUser.sub);
         setVenueId(sessionStorage.getItem("venueId"));
         console.log("venue id set in session storage as" + venueId);

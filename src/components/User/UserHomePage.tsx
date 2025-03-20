@@ -1,8 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { LinkButton } from "../LinkButton";
-import { UserForm } from "../UserForm";
-import { useParams } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 import { DateSelector } from "../DateSelector";
 import styles from "./UserHomePage.module.css";
@@ -15,6 +13,8 @@ export const UserHomePage = () => {
     screenId: number;
     date: string;
     time: string;
+    name:string;
+    imageUrl?:string;
   };
   const [userId, setUserId] = useState<string | null>(
     sessionStorage.getItem("userId")
@@ -31,6 +31,7 @@ export const UserHomePage = () => {
       const decodedUser = jwtDecode(token);
       console.log(decodedUser);
       if (decodedUser.sub) {
+        sessionStorage.setItem("token",token);
         sessionStorage.setItem("userId", decodedUser.sub);
         setUserId(sessionStorage.getItem("userId"));
       }
@@ -67,6 +68,14 @@ export const UserHomePage = () => {
               />
               <h4>{show.time}</h4>
               <h4>{show.screenId}</h4>
+              <h4>{show.name}</h4>
+              {show.imageUrl && (
+                  <img
+                    src={show.imageUrl}
+                    alt={show.name}
+                    className={styles.showImage} 
+                  />
+                )}
             </div>
           );
         })}
